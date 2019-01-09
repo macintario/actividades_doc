@@ -12,7 +12,12 @@ with open('1016.csv') as csvfile:
         id_docente = row[6]
         horas_min = row[2]
         horas_max = row[12]
-        with open('salida.csv', mode='a') as salida:
-            linewrite = csv.writer(salida,delimiter=',')
-            linewrite.writerow([pla_id, plantel, nombre_docente, id_docente])
+        turno = row[17]
+        asi_id = row[28]
+        asignatura = row[29]
+        hrs_asig = row[30]
+        if asi_id != '':
+            with open('salida.csv', mode='a') as salida:
+                linewrite = csv.writer(salida,delimiter=',')
+                linewrite.writerow([pla_id, plantel, nombre_docente, id_docente,horas_min,horas_max, turno, asi_id, asignatura, hrs_asig])
 print("ok")
