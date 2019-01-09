@@ -1,19 +1,5 @@
 import csv
 import os
-#clean all
-os.remove('salida.csv')
-des_hrs_activ = ''
-cve_act = ''
-actividad = ''
-lugar = ''
-d_lunes = ''
-d_martes = ''
-d_miercoles = ''
-d_jueves = ''
-d_viernes = ''
-d_sabado = ''
-d_domingo = ''
-des_hrs_activ = ''
 
 def limpia_escalerita():
     des_hrs_activ = ''
@@ -30,9 +16,35 @@ def limpia_escalerita():
     des_hrs_activ = ''
 
 
+#clean all
+os.remove('salida.csv')
+des_hrs_activ = ''
+cve_act = ''
+actividad = ''
+lugar = ''
+d_lunes = ''
+d_martes = ''
+d_miercoles = ''
+d_jueves = ''
+d_viernes = ''
+d_sabado = ''
+d_domingo = ''
+des_hrs_activ = ''
+
+
+def busca_carrera(pla_id, carr_id):
+    carrera = 'noencontrada'
+    with open('carreras_x_plantel.csv') as catalogo:
+        cat = csv.reader(catalogo, delimiter=',')
+        for rcat in cat:
+            if pla_id == rcat[0]:
+                if carr_id == rcat[8]:
+                    carrera = rcat[5]
+    return carrera
+
 with open('1016.csv') as csvfile:
     limpia_escalerita()
-    act = csv.reader(csvfile, delimiter = ',' )
+    act = csv.reader(csvfile, delimiter = ',')
     for row in act:
         pla_id = row[11][0:4]
         plantel = row[11][5:]
@@ -61,6 +73,7 @@ with open('1016.csv') as csvfile:
         c_sabado = row[54]
         c_domingo = row[55]
         hrs_total = row[44]
+        hrs_nom = row[86]
 ## la m'endiga escalerita
         if row[62] != '':
             des_hrs_activ = row[62]
@@ -89,14 +102,14 @@ with open('1016.csv') as csvfile:
             with open('salida.csv', mode='a') as salida:
                 linewrite = csv.writer(salida, delimiter=',')
                 linewrite.writerow([pla_id, plantel, nombre_docente, id_docente,horas_min,
-                                    horas_max, turno, asi_id, asignatura, hrs_asig, tipo_asig, semestre, id_pa, ' ',
+                                    horas_max, hrs_nom, turno, asi_id, asignatura, hrs_asig, tipo_asig, semestre, id_pa, busca_carrera(pla_id, id_pa),
                                     hrs_base, hrs_interinato, id_grupo, id_mod, id_salon,
                                     c_lunes, c_martes, c_miercoles, c_jueves, c_viernes, c_sabado, c_domingo, hrs_total])
         if des_cic_id != '':
             with open('salida.csv', mode='a') as salida:
                 linewrite = csv.writer(salida, delimiter=',')
                 linewrite.writerow([pla_id, plantel, nombre_docente, id_docente,horas_min,
-                                    horas_max, turno, cve_act, actividad, hrs_asig, tipo_asig, semestre, id_pa, ' ',
+                                    horas_max, hrs_nom, turno, cve_act, actividad, hrs_asig, tipo_asig, semestre, id_pa, ' ',
                                     hrs_base, hrs_interinato, id_grupo, 'A', lugar,
                                     d_lunes, d_martes, d_miercoles, d_jueves, d_viernes, d_sabado, d_domingo, des_hrs_activ])
         if pza_num_emp != '':
