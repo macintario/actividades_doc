@@ -16,8 +16,14 @@ with open('1016.csv') as csvfile:
         asi_id = row[28]
         asignatura = row[29]
         hrs_asig = row[30]
+        tipo_asig = row[33]
+        semestre = row[34]
+        id_pa = row[27]
+        hrs_base = row[42]
+        hrs_interinato = row[41]
         if asi_id != '':
             with open('salida.csv', mode='a') as salida:
                 linewrite = csv.writer(salida,delimiter=',')
-                linewrite.writerow([pla_id, plantel, nombre_docente, id_docente,horas_min,horas_max, turno, asi_id, asignatura, hrs_asig])
+                linewrite.writerow([pla_id, plantel, nombre_docente, id_docente,horas_min,
+                                    horas_max, turno, asi_id, asignatura, hrs_asig, tipo_asig, semestre, id_pa, ' ', hrs_base, hrs_interinato])
 print("ok")
