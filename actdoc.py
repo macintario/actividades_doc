@@ -42,7 +42,8 @@ def busca_carrera(pla_id, carr_id):
                     carrera = rcat[5]
     return carrera
 
-with open('1016.csv') as csvfile:
+with open('RUAS.csv') as csvfile:
+#with open('1016.csv') as csvfile:
     limpia_escalerita()
     act = csv.reader(csvfile, delimiter = ',')
     for row in act:
@@ -98,14 +99,14 @@ with open('1016.csv') as csvfile:
         if row[75] != '':
             d_domingo = row[77]
         des_cic_id = row[80]
-        if asi_id != '':
+        if asi_id != '' and 'CENTRO DE ESTUDIOS' not in plantel:
             with open('salida.csv', mode='a') as salida:
                 linewrite = csv.writer(salida, delimiter=',')
                 linewrite.writerow([pla_id, plantel, nombre_docente, id_docente,horas_min,
                                     horas_max, hrs_nom, turno, asi_id, asignatura, hrs_asig, tipo_asig, semestre, id_pa, busca_carrera(pla_id, id_pa),
                                     hrs_base, hrs_interinato, id_grupo, id_mod, id_salon,
                                     c_lunes, c_martes, c_miercoles, c_jueves, c_viernes, c_sabado, c_domingo, hrs_total])
-        if des_cic_id != '':
+        if des_cic_id != '' and 'CENTRO DE ESTUDIOS' not in plantel:
             with open('salida.csv', mode='a') as salida:
                 linewrite = csv.writer(salida, delimiter=',')
                 linewrite.writerow([pla_id, plantel, nombre_docente, id_docente,horas_min,
