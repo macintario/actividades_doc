@@ -52,7 +52,7 @@ with open('RUAS.csv') as csvfile:
         nombre_docente = row[7]
         id_docente = row[6]
         horas_min = row[2]
-        horas_max = row[12]
+        horas_max = row[16]
         turno = row[17]
         asi_id = row[28]
         asignatura = row[29]
@@ -117,3 +117,5 @@ with open('RUAS.csv') as csvfile:
             print(pza_num_emp)
             limpia_escalerita()
 print("ok")
+
+
